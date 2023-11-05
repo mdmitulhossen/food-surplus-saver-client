@@ -2,6 +2,8 @@ import Hero from "../../components/header/Hero";
 import findfoodbg from '../../assets/Home/map.jpg'
 import ServiceCard from "../../components/card/ServiceCard";
 import FeatureFoods from "./FeatureFoods";
+import TestimonialCard from "../../components/card/TestimonialCard";
+import HomeTestimonial from "./HomeTestimonial";
 
 const Home = () => {
     return (
@@ -30,6 +32,11 @@ const Home = () => {
             {/* Our Feature Foods */}
             <div>
                 <FeatureFoods/>
+            </div>
+
+            {/* testimonial */}
+            <div className="foodContainer my-20">
+                <HomeTestimonial/>
             </div>
         </div>
     );
