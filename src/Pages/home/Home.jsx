@@ -1,6 +1,7 @@
 import Hero from "../../components/header/Hero";
 import findfoodbg from '../../assets/Home/map.jpg'
 import ServiceCard from "../../components/card/ServiceCard";
+import FeatureFoods from "./FeatureFoods";
 
 const Home = () => {
     return (
@@ -24,9 +25,11 @@ const Home = () => {
                      <p className="font-bold">Search our map to find free groceries and meals at a food pantry or program near you. </p>
                      <button className='px-4 py-2 bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200'>Find Food</button>
                 </div>
+            </div>
 
-
-
+            {/* Our Feature Foods */}
+            <div>
+                <FeatureFoods/>
             </div>
         </div>
     );
