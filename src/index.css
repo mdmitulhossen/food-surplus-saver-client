@@ -9,3 +9,9 @@
 body{
   font-family: 'Spectral', serif;
 }
+
+@layer components{
+  .foodContainer{
+    @apply max-w-[1600px] md:px-10  xl:px-28  mx-auto px-4
+  }
+}
