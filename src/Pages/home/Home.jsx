@@ -51,6 +51,7 @@ const Home = () => {
                 <img src={footerimage} className="w-full" alt="" />
             </div>
 
+
         </div>
     );
 };

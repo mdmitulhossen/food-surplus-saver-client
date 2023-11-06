@@ -14,7 +14,6 @@ const LoginPage = () => {
 
     const onSubmit = (data) => console.log(data)
 
-    // console.log(watch("example"))
     return (
         <div
             style={{ backgroundImage: `url(${authbg})` }}
@@ -23,16 +22,16 @@ const LoginPage = () => {
             <div className=' bg-white/80 foodContainer flex justify-center items-center py-10'>
                 <div className="form-container">
                     <p className="title">Welcome back</p>
-                    <form className="form">
-                        <input type="email" className="input" placeholder="Email" />
-                        <input type="password" className="input" placeholder="Password" />
+                    <form onSubmit={handleSubmit(onSubmit)} className="form">
+                        <input {...register("email", { required: true })} type="email" className="input" placeholder="Email" />
+                        <input {...register("password", { required: true })} type="password" className="input" placeholder="Password" />
                         <p className="page-link">
                             <span className="page-link-label">Forgot Password?</span>
                         </p>
-                        <button className="form-btn">Log in</button>
+                        <button type='submit' className="form-btn">Log in</button>
                     </form>
                     <p className="sign-up-label">
-                        Don't have an account?<span onClick={()=>navigate('/register')} className="sign-up-link">Sign up</span>
+                        Don't have an account?<span onClick={() => navigate('/register')} className="sign-up-link">Sign up</span>
                     </p>
                     <div className="buttons-container">
                         <div className="apple-login-button">
@@ -40,7 +39,7 @@ const LoginPage = () => {
                             <span>Log in with github</span>
                         </div>
                         <div className="google-login-button">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px" className="google-icon" viewBox="0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1.1" x="0px" y="0px" className="google-icon" viewBox="0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
       c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
       c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
