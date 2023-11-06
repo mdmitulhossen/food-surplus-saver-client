@@ -1,7 +1,7 @@
 import logo from '../../assets/logo.png'
 const Footer = () => {
     return (
-        <div>
+        <div className=''>
             <footer className="bg-[#0C4428]/90">
                 <div className="foodContainer pt-16 pb-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">

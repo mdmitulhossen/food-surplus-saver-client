@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import logo from '../../assets/logo.png'
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 const Navbar = () => {
+  const location = useLocation()
+
   const [userOpen, setUserOpen] = useState(false)
   const menu = [
     { path: '/', name: 'Home' },
@@ -13,7 +15,7 @@ const Navbar = () => {
   ]
   const user = false
   return (
-    <div className='absolute top-0 w-full z-50'>
+    <div className={`${location.pathname==='/' ? 'absolute ':'bg-[#0C4428]' }  top-0 w-full z-50`}>
       <header className=" z-50 w-full bg-transparent  py-3 lg:py-0 dark:bg-gray-800 dark:border-gray-700">
         <nav className="relative foodContainer w-full lg:flex lg:items-center lg:justify-between " aria-label="Global">
           <div className="flex items-center justify-between">
@@ -39,7 +41,7 @@ const Navbar = () => {
                     </div>
                   </div>
                     :
-                    <NavLink className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-[#64AF5D] lg:border-l sm:border-gray-300 lg:my-6 lg:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-[#618264]">
+                    <NavLink  to='/login' className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-[#64AF5D] lg:border-l sm:border-gray-300 lg:my-6 lg:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-[#618264]">
                       <button type="button" className="flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium text-black hover:text-white bg-[#c0ffc5] rounded-md hover:bg-[#64AF5D] transition-all">
                         <span className="flex items-center gap-1">
                           <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -93,7 +95,7 @@ const Navbar = () => {
                   </div>
                 </div>
                   :
-                  <NavLink className=" hidden lg:flex items-center gap-x-2 font-medium  lg:border-l sm:border-gray-300 lg:my-6 lg:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-[#618264]">
+                  <NavLink to='/login' className=" hidden lg:flex items-center gap-x-2 font-medium  lg:border-l sm:border-gray-300 lg:my-6 lg:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-[#618264]">
                     <button type="button" className="flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium  bg-[#c0ffc5] rounded-md hover:bg-[#64AF5D] hover:text-white">
                       <span className="flex items-center gap-1">
                         <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
