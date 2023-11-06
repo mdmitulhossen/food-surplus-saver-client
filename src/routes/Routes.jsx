@@ -3,6 +3,7 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/home/Home";
 import LoginPage from "../Pages/auth/LoginPage";
 import RegisterPage from "../Pages/auth/RegisterPage";
+import AvailableFooodPage from "../Pages/AvailableFooodPage";
 
 
 const Routes = createBrowserRouter([
@@ -16,7 +17,7 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/availableFoods',
-                element:<div>availableFoods</div>
+                element:<AvailableFooodPage/>
             },
             {
                 path:'/food/add',
