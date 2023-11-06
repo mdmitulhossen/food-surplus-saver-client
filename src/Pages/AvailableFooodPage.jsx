@@ -22,7 +22,7 @@ const AvailableFooodPage = () => {
 
                     <div className="grid grid-cols-12 mt-10 gap-2">
 
-                        <div className="md:col-span-3 space-y-5">
+                        <div className="col-span-full lg:col-span-3  space-y-5">
                             <div>
                                 <p className="text-xl font-bold mb-2">Search</p>
                                 <input
@@ -45,7 +45,7 @@ const AvailableFooodPage = () => {
                             </div>
                         </div>
                         {/* right */}
-                        <div className="md:col-span-9 grid grid-cols-3 gap-2">
+                        <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
                             <FoodCard />
                             <FoodCard />
                             <FoodCard />
