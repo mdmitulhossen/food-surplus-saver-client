@@ -14,14 +14,14 @@ const AvailableFooodPage = () => {
         <div >
             <Adds />
             <div className="foodContainer py-10">
-                <Breadcrumb />
+                <Breadcrumb path="Available Foods" />
 
                 <div className="mt-10 border rounded-md p-2 pt-8">
                     <h1 className="text-4xl font-bold text-center text-[#0C4428] ">All Available Foods</h1>
 
 
                     <div className="grid grid-cols-12 mt-10 gap-2">
-
+                        {/* left search and sort */}
                         <div className="col-span-full lg:col-span-3  space-y-5">
                             <div>
                                 <p className="text-xl font-bold mb-2">Search</p>

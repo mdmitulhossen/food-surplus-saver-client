@@ -4,6 +4,7 @@ import Home from "../Pages/home/Home";
 import LoginPage from "../Pages/auth/LoginPage";
 import RegisterPage from "../Pages/auth/RegisterPage";
 import AvailableFooodPage from "../Pages/AvailableFooodPage";
+import AddFoodPage from "../Pages/AddFoodPage";
 
 
 const Routes = createBrowserRouter([
@@ -21,7 +22,7 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/food/add',
-                element:<div>Food Add</div>
+                element:<AddFoodPage/>
             },
             {
                 path:'/myFoods/manage',
