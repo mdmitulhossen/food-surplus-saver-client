@@ -6,7 +6,7 @@ const FeatureFoods = () => {
         // backgroundSize: '100% 100%'
         <div
             style={{ backgroundImage: `url(${featureFoodBg})`, backgroundSize: '100% 100%' }}
-            className=" w-full h-full bg-cover bg-repeat mb-10 ">
+            className=" w-full h-full bg-cover bg-repeat">
             <div className="bg-white/95 h-full w-full">
                 <div className="foodContainer pt-16">
                       <Title

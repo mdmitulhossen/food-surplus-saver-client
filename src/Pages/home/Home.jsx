@@ -4,6 +4,7 @@ import ServiceCard from "../../components/card/ServiceCard";
 import FeatureFoods from "./FeatureFoods";
 import TestimonialCard from "../../components/card/TestimonialCard";
 import HomeTestimonial from "./HomeTestimonial";
+import HomeAbout from "./HomeAbout";
 
 const Home = () => {
     return (
@@ -33,11 +34,17 @@ const Home = () => {
             <div>
                 <FeatureFoods/>
             </div>
-
-            {/* testimonial */}
-            <div className="foodContainer my-20">
+               {/* testimonial */}
+               <div className="foodContainer my-24">
                 <HomeTestimonial/>
             </div>
+
+            {/* about us Foods */}
+            <div className="">
+                <HomeAbout/>
+            </div>
+
+         
         </div>
     );
 };
