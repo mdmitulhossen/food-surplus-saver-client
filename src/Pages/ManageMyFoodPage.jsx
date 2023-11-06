@@ -3,6 +3,7 @@ import Table from '../components/table/Table';
 
 import movies from '../../public/movie.json'
 import { useMemo } from 'react';
+import Breadcrumb from '../components/Breadcrumb';
 const ManageMyFoodPage = () => {
     const data = useMemo(() => movies, [])
 
@@ -41,8 +42,15 @@ const ManageMyFoodPage = () => {
         >
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
+                    <Breadcrumb path='Manage My Food' />
 
-                    <Table data={data} columns={movieColumns} />
+                    <div className='mt-10 border py-10'>
+                        <h1 className="text-4xl font-bold text-center text-[#0C4428] ">My Food  </h1>
+                        <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center mb-20">
+                            "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
+                        </p>
+                        <Table data={data} columns={movieColumns} />
+                    </div>
                 </div>
 
             </div>

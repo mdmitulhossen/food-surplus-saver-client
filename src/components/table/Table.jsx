@@ -9,8 +9,8 @@ const Table = ({ data, columns }) => {
         getPaginationRowModel: getPaginationRowModel(),
     })
     return (
-        <div className="w-full">
-            <table className='w-full'>
+        <div className="w-full overflow-x-auto">
+            <table className='w-full' >
                 <thead >
                     {table.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id} className='bg-[#0C4428]/80 text-white'>
