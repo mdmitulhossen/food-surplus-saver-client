@@ -1,8 +1,10 @@
 import Breadcrumb from "../components/Breadcrumb";
 import bg from '../assets/addFood/addFoodbg.svg'
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
 const AddFoodPage = () => {
+    const { user } = useAuth() || {};
     const {
         register,
         handleSubmit,
@@ -10,7 +12,7 @@ const AddFoodPage = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => console.log([...Object.keys(data)])
     return (
         <div>
             <div
@@ -57,15 +59,15 @@ const AddFoodPage = () => {
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donator Name : </p>
-                                        <input {...register("donatorName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue="donator"/>
+                                        <input {...register("donatorName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue={user?.displayName}/>
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donator Email : </p>
-                                        <input {...register("donatorEmail")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue="donator@gmail.com" readOnly/>
+                                        <input {...register("donatorEmail")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue={user?.email} readOnly/>
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donator Image: </p>
-                                        <input {...register("donatorImageURL")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue="https://imgbb/ashasifasdfa/im.jpg" readOnly/>
+                                        <input {...register("donatorImageURL")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue={user?.photoURL} readOnly/>
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Food Status : </p>

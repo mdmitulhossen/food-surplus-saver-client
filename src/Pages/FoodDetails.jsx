@@ -13,11 +13,11 @@ const FoodDetails = () => {
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     const yyyy = today.getFullYear();
-    
-    today = mm + '/' + dd + '/' + yyyy;
+
+    today = yyyy + '-' + mm + '-' + dd;
     console.log(today);
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => console.log([...Object.keys(data)])
 
     return (
         <div className='foodContainer mt-10'>
@@ -140,10 +140,10 @@ const FoodDetails = () => {
                         <div className="p-4 sm:p-10 overflow-y-auto">
                             <div className="mb-6 text-center">
                                 <h3 className="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200">
-                                    Notifications
+                                    {'foodName'}
                                 </h3>
                                 <p className="text-gray-500">
-                                    Get notified of activity at Preline
+                                    See what's needed and give back.
                                 </p>
                             </div>
 
@@ -152,19 +152,19 @@ const FoodDetails = () => {
                                 <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto grid grid-cols-12 max-w-[850px] gap-5">
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Food Id : </p>
-                                        <input {...register("foodID")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food id" readOnly/>
+                                        <input {...register("foodID")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food id" readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Food Name : </p>
-                                        <input {...register("foodName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food Name" readOnly/>
+                                        <input {...register("foodName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food Name" readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Food Image : </p>
-                                        <input {...register("foodImgURL")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food Image Url" readOnly/>
+                                        <input {...register("foodImgURL")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food Image Url" readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donator Name : </p>
-                                        <input {...register("donatorName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue="donator" readOnly/>
+                                        <input {...register("donatorName")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue="donator" readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donator Email : </p>
@@ -172,19 +172,19 @@ const FoodDetails = () => {
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2"> Your Email : </p>
-                                        <input {...register("userEmail")}  type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="user email" readOnly/>
+                                        <input {...register("userEmail")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="user email" readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Requested Date: </p>
-                                        <input {...register("requestedDate")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue={today}  readOnly/>
+                                        <input {...register("requestedDate")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue={today} readOnly />
                                     </div>
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Pickup Location : </p>
-                                        <input {...register("location")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Pickup Location" readOnly/>
+                                        <input {...register("location")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Pickup Location" readOnly />
                                     </div>
                                     <div className="w-full md:col-span-6 col-span-full ">
                                         <p className="text-base font-medium mb-2">Expire Date : </p>
-                                        <input {...register("expireDate")} type="date" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Expire Date" readOnly/>
+                                        <input {...register("expireDate")} type="date" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Expire Date" readOnly />
                                     </div>
 
 
@@ -196,9 +196,9 @@ const FoodDetails = () => {
                                         <p className="text-base font-medium mb-2">Your Message : </p>
                                         <textarea {...register("userMessge")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Your Message" />
                                     </div>
-                                    
-                                   
-                                    
+
+
+
                                     <button className='px-4 py-2 mx-auto w-[300px] col-span-full bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200 '>Request Food</button>
 
                                 </form>
