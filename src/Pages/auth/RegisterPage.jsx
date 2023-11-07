@@ -4,10 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
+import Spinner from '../../components/spinner/Spinner';
 const RegisterPage = () => {
     const navigate = useNavigate()
     const location = useLocation();
-    const { user, signUpWithEmailPassword, updateUserProfile, loading, setLoading, googleSignIn, githubSignIn,
+    const { signUpWithEmailPassword, updateUserProfile, loading, setLoading,
     } = useAuth() || {};
 
 
@@ -16,6 +17,7 @@ const RegisterPage = () => {
         handleSubmit,
         formState: { errors },
     } = useForm()
+
 
 
 
@@ -49,7 +51,7 @@ const RegisterPage = () => {
 
     }
 
-  
+
 
 
     // console.log(user)
@@ -59,6 +61,10 @@ const RegisterPage = () => {
             style={{ backgroundImage: `url(${authbg})` }}
             className=" w-full relative h-full"
         >
+            {
+                loading && <div className='absolute w-full h-full bg-green-200/60'> <Spinner /></div>
+
+            }
             <div className=' bg-white/80 foodContainer flex justify-center items-center py-10'>
                 <div className="form-container">
 

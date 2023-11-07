@@ -22,7 +22,7 @@ const AddFoodPage = () => {
                         <Breadcrumb path='Add Food' />
 
                         <div className="mt-10 border rounded-md px-2  py-8">
-                            <h1 className="text-4xl font-bold text-center text-[#0C4428] ">Add Your Food</h1>
+                            <h1 className="text-4xl font-bold text-center text-[#0C4428] ">Add Your Food </h1>
                             <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center">
                                 "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
                             </p>

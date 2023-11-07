@@ -4,6 +4,7 @@ import './auth.css';
 import { useForm } from "react-hook-form"
 import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
+import Spinner from '../../components/spinner/Spinner';
 
 const LoginPage = () => {
     const navigate = useNavigate()
@@ -33,7 +34,7 @@ const LoginPage = () => {
             });
     };
 
-    
+
     // google sign in
     const handleGoogleSignIn = () => {
         googleSignIn()
@@ -67,6 +68,10 @@ const LoginPage = () => {
             style={{ backgroundImage: `url(${authbg})` }}
             className=" w-full relative h-full"
         >
+            {
+                loading && <div className='absolute w-full h-full bg-green-200/60'> <Spinner /></div>
+
+            }
             <div className=' bg-white/80 foodContainer flex justify-center items-center py-10'>
                 <div className="form-container">
                     <p className="title">Welcome back</p>
