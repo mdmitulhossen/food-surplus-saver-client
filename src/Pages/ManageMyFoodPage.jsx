@@ -1,19 +1,15 @@
 import bg from '../assets/addFood/addFoodbg.svg'
 import Table from '../components/table/Table';
 
-import movies from '../../public/movie.json'
 import foodsData from '../../public/food.json'
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
+import { useNavigate } from 'react-router-dom';
+
+
 const ManageMyFoodPage = () => {
     const data = useMemo(() => foodsData, [])
-    // const data = useMemo(() => movies, [])
-    // const [data, setData] = useState([])
-    // useEffect(() => {
-    //     fetch('/food.json')
-    //         .then(res => res.json())
-    //         .then(data => setData(data))
-    // }, [])
+    const navigate = useNavigate()
 
     console.log(data)
   
@@ -30,7 +26,7 @@ const ManageMyFoodPage = () => {
         },
         {
             header: 'Image',
-            accessorKey: 'foodImgURL',
+            // accessorKey: 'foodImgURL',
             cell: ({ row }) => (
                 <img
                   src={row?.original?.foodImgURL}
@@ -57,7 +53,7 @@ const ManageMyFoodPage = () => {
             cell: ({ row }) => <div className='flex gap-3 justify-center'>
                 <button onClick={() => console.log(row)} className='text-red-600 text-xl'><i className='bx bxs-message-square-minus' ></i></button>
                 <button onClick={() => console.log(row)} className='text-[#8DC53E] text-xl'><i className='bx bxs-edit-alt' ></i></button>
-                <button onClick={() => console.log(row)} className='text-[#0C4428] text-xl'><i className='bx bxs-low-vision' ></i></button>
+                <button onClick={() => navigate(`/manage/${row.original.id}`)} className='text-[#0C4428] text-xl'><i className='bx bxs-low-vision' ></i></button>
             </div>
         },
     ]
