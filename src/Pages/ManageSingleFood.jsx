@@ -23,11 +23,6 @@ const ManageSingleFood = () => {
 
 
     const requestColumn = [
-        // {
-        //     header: 'ID',
-        //     accessorKey: 'id',
-        //     width: 200
-        // },
         {
             header: 'Requester',
             accessorKey: 'requester',

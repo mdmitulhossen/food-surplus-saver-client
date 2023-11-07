@@ -8,6 +8,7 @@ import AddFoodPage from "../Pages/AddFoodPage";
 import FoodDetails from "../Pages/FoodDetails";
 import ManageMyFoodPage from "../Pages/ManageMyFoodPage";
 import ManageSingleFood from "../Pages/ManageSingleFood";
+import MyFoodRequestPage from "../Pages/MyFoodRequestPage";
 
 
 const Routes = createBrowserRouter([
@@ -41,7 +42,7 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/myFoods/request',
-                element:<div>Food request</div>
+                element:<MyFoodRequestPage/>
             },
             {
                 path:'/login',
