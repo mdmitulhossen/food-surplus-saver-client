@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import berry from '../../assets/Home/food/berry-smoothies.jpg'
 import user from '../../assets/user.jpg'
 
 const FoodCard = () => {
+    const navigate = useNavigate()
     return (
         <div>
             <div className="flex w-full flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] " >
@@ -55,7 +57,7 @@ const FoodCard = () => {
                         </div>
                     </div>
                 </div>
-                <button className='px-4 py-2 w-full bg-[#8DC53E] text-base rounded-b-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200'>View Details</button>
+                <button onClick={()=>navigate('/food/4')} className='px-4 py-2 w-full bg-[#8DC53E] text-base rounded-b-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200'>View Details</button>
             </div>
         </div>
     );

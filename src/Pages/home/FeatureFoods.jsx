@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import featureFoodBg from "../../assets/Home/featureFood.jpg"
 import FoodCard from "../../components/card/FoodCard";
 import Title from "../../components/header/Title";
+
 const FeatureFoods = () => {
+    const navigate = useNavigate()
+   
     return (
         // backgroundSize: '100% 100%'
         <div
@@ -24,7 +28,7 @@ const FeatureFoods = () => {
                       </div>
 
                       <div className="flex justify-center w-full mt-10">
-                            <button className='px-8 py-2 bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200'>Show All</button>
+                            <button onClick={()=>navigate('/availableFoods')} className='px-8 py-2 bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200'>Show All</button>
                       </div>
                 </div>
             </div>

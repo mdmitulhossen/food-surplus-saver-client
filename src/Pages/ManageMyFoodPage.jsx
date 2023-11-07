@@ -52,7 +52,7 @@ const ManageMyFoodPage = () => {
             header: 'action',
             cell: ({ row }) => <div className='flex gap-3 justify-center'>
                 <button onClick={() => console.log(row)} className='text-red-600 text-xl'><i className='bx bxs-message-square-minus' ></i></button>
-                <button onClick={() => console.log(row)} className='text-[#8DC53E] text-xl'><i className='bx bxs-edit-alt' ></i></button>
+                <button onClick={() => navigate(`/food/update/${row.original.id}`)} className='text-[#8DC53E] text-xl'><i className='bx bxs-edit-alt' ></i></button>
                 <button onClick={() => navigate(`/manage/${row.original.id}`)} className='text-[#0C4428] text-xl'><i className='bx bxs-low-vision' ></i></button>
             </div>
         },

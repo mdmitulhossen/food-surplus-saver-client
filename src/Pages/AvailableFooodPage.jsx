@@ -2,8 +2,17 @@ import { useForm } from "react-hook-form";
 import Adds from "../components/Adds";
 import Breadcrumb from "../components/Breadcrumb";
 import FoodCard from "../components/card/FoodCard";
+import { useEffect } from "react";
 
 const AvailableFooodPage = () => {
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+      }, [])
+
+      
     const {
         register,
         formState: { errors },

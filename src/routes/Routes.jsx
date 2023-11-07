@@ -9,6 +9,7 @@ import FoodDetails from "../Pages/FoodDetails";
 import ManageMyFoodPage from "../Pages/ManageMyFoodPage";
 import ManageSingleFood from "../Pages/ManageSingleFood";
 import MyFoodRequestPage from "../Pages/MyFoodRequestPage";
+import MyFoodUpdatePage from "../Pages/MyFoodUpdatePage";
 
 
 const Routes = createBrowserRouter([
@@ -31,6 +32,10 @@ const Routes = createBrowserRouter([
             {
                 path:'/food/add',
                 element:<AddFoodPage/>
+            },
+            {
+                path:'/food/update/:id',
+                element:<MyFoodUpdatePage/>
             },
             {
                 path:'/myFoods/manage',
