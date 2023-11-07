@@ -38,7 +38,7 @@ const Table = ({ data, columns }) => {
                     {table.getRowModel().rows.map(row => (
                         <tr key={row.id} className='odd:bg-slate-200'>
                             {row.getVisibleCells().map(cell => (
-                                <td key={cell.id} className='py-5 px-2'>
+                                <td key={cell.id} className='py-5 px-2 text-center'>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                 </td>
                             ))}

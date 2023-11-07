@@ -2,32 +2,59 @@ import bg from '../assets/addFood/addFoodbg.svg'
 import Table from '../components/table/Table';
 
 import movies from '../../public/movie.json'
-import { useMemo } from 'react';
+import foodsData from '../../public/food.json'
+import { useEffect, useMemo, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 const ManageMyFoodPage = () => {
-    const data = useMemo(() => movies, [])
+    const data = useMemo(() => foodsData, [])
+    // const data = useMemo(() => movies, [])
+    // const [data, setData] = useState([])
+    // useEffect(() => {
+    //     fetch('/food.json')
+    //         .then(res => res.json())
+    //         .then(data => setData(data))
+    // }, [])
 
+    console.log(data)
+  
 
-    const movieColumns = [
+    const foods = [
         {
             header: 'ID',
             accessorKey: 'id',
+            width: 200
         },
         {
             header: 'Name',
-            accessorKey: 'name',
+            accessorKey: 'foodName',
         },
         {
-            header: 'Genre',
-            accessorKey: 'genre',
+            header: 'Image',
+            accessorKey: 'foodImgURL',
+            cell: ({ row }) => (
+                <img
+                  src={row?.original?.foodImgURL}
+                  alt={row?.original?.name}
+                  className="w-16 h-16 rounded object-cover mx-auto" // You can adjust the width and height as needed
+                />
+              ),
+            // width: 100
         },
         {
-            header: 'Rating',
-            accessorKey: 'rating',
+            header: 'ExpireDate',
+            accessorKey: 'expireDate',
+        },
+        {
+            header: 'Quantity',
+            accessorKey: 'quantity',
+        },
+        {
+            header: 'status',
+            accessorKey: 'status',
         },
         {
             header: 'action',
-            cell: ({ row }) => <div className='flex gap-3'>
+            cell: ({ row }) => <div className='flex gap-3 justify-center'>
                 <button onClick={() => console.log(row)} className='text-red-600 text-xl'><i className='bx bxs-message-square-minus' ></i></button>
                 <button onClick={() => console.log(row)} className='text-[#8DC53E] text-xl'><i className='bx bxs-edit-alt' ></i></button>
                 <button onClick={() => console.log(row)} className='text-[#0C4428] text-xl'><i className='bx bxs-low-vision' ></i></button>
@@ -49,7 +76,7 @@ const ManageMyFoodPage = () => {
                         <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center mb-20">
                             "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
                         </p>
-                        <Table data={data} columns={movieColumns} />
+                        <Table data={data} columns={foods} />
                     </div>
                 </div>
 
