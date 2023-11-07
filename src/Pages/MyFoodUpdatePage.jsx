@@ -67,7 +67,7 @@ const MyFoodUpdatePage = () => {
                                         <p className="text-base font-medium mb-2">Food Status : </p>
                                         <input {...register("status")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" defaultValue='available' readOnly />
                                     </div>
-                                    <button className='px-4 py-2 mx-auto w-[300px] col-span-full bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200 '>Add Food</button>
+                                    <button className='px-4 py-2 mx-auto w-[300px] col-span-full bg-[#8DC53E] text-base rounded-md font-semibold hover:bg-[#0C4428] hover:text-white duration-200 '>Update Food</button>
 
                                 </form>
                             </div>
