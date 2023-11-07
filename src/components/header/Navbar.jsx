@@ -1,10 +1,22 @@
 import { useState } from 'react';
 import logo from '../../assets/logo.png'
 import { Link, NavLink, useLocation } from "react-router-dom";
+import useAuth from '../../hooks/useAuth';
+import toast from 'react-hot-toast';
 const Navbar = () => {
   const location = useLocation()
-
   const [userOpen, setUserOpen] = useState(false)
+  const { user,logOut } = useAuth() || {};
+
+  console.log(user)
+
+  
+  const handleLogOut = ()=>{
+    logOut()
+    .then(result => toast.success('successfully Logout'))
+    .catch(err => toast.error(err))
+    setUserOpen(false)
+  }
   const menu = [
     { path: '/', name: 'Home' },
     { path: '/availableFoods', name: 'Available-Foods' },
@@ -13,7 +25,6 @@ const Navbar = () => {
     { path: '/myFoods/request', name: 'My-Food-Request' },
 
   ]
-  const user = false
   return (
     <div className={`${location.pathname==='/' ? 'absolute ':'bg-[#0C4428]' }  top-0 w-full z-50`}>
       <header className=" z-50 w-full bg-transparent  py-3 lg:py-0 dark:bg-gray-800 dark:border-gray-700">
@@ -31,13 +42,13 @@ const Navbar = () => {
                   user ? <div className="relative lg:border-l sm:border-[#618264] lg:my-6 lg:pl-6 dark:border-gray-700 max-w-[250px] lg:w-auto">
                     <button onClick={() => setUserOpen(!userOpen)} type="button" className="flex mx-auto items-center justify-center transition-all ">
                       <div className="relative inline-block">
-                        <img className="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-[#618264] dark:ring-gray-800 " src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
+                        <img className="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-[#618264] dark:ring-gray-800 " src={user?.photoURL} alt="Image Description" />
                         <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white bg-[#618264]"></span>
                       </div>
                     </button>
                     <div className={`absolute ${userOpen ? 'block' : 'hidden'}  top-10 right-4 max-w-[250px] min-w-[200px] bg-[#c0ffc5] border-[#618264] z-40 shadow-xl p-4 border rounded-md`}>
-                      <p className='font-bold mb-2 text-center'>Md Mitul Hossain</p>
-                      <button className='flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium text-white bg-[#618264] rounded-md hover:bg-[#64AF5D] transition-all'>Logout</button>
+                      <p className='font-bold mb-2 text-center'>{user?.displayName}</p>
+                      <button onClick={handleLogOut} className='flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium text-white bg-[#618264] rounded-md hover:bg-[#64AF5D] transition-all'>Logout</button>
                     </div>
                   </div>
                     :
@@ -58,7 +69,7 @@ const Navbar = () => {
               <div className="">
                 <button type="button" className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-[#c0ffc5] text-black hover:text-white shadow-sm align-middle hover:bg-[#618264]/80 focus:outline-none   text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
                   <svg className="hs-collapse-open:hidden w-4 h-4" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                   </svg>
                   <svg className="hs-collapse-open:block hidden w-4 h-4" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -85,13 +96,13 @@ const Navbar = () => {
                 user ? <div className="relative hidden lg:block lg:border-l sm:border-[#618264] lg:my-6 lg:pl-6 dark:border-gray-700 max-w-[250px] lg:w-auto">
                   <button onClick={() => setUserOpen(!userOpen)} type="button" className="flex mx-auto items-center justify-center transition-all mt-6 lg:mt-0">
                     <div className="relative inline-block">
-                      <img className="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white dark:ring-gray-800" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
+                      <img className="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white dark:ring-gray-800" src={user?.photoURL} alt="Image Description" />
                       <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white bg-[#618264]"></span>
                     </div>
                   </button>
                   <div className={`lg:absolute ${userOpen ? 'block' : 'hidden'}   top-10 right-4 max-w-[250px]  lg:min-w-[200px] bg-[#c0ffc5] border-[#618264] z-40 shadow-xl p-4 border rounded-md`}>
-                    <p className='font-bold mb-2 text-center'>Md Mitul Hossain</p>
-                    <button className='flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium text-white bg-[#618264] rounded-md hover:bg-[#64AF5D] transition-all'>Logout</button>
+                    <p className='font-bold mb-2 text-center'>{user?.displayName}</p>
+                    <button onClick={handleLogOut} className='flex items-center justify-center gap-2 w-full px-4 py-2 text-sm font-medium text-white bg-[#618264] rounded-md hover:bg-[#64AF5D] transition-all'>Logout</button>
                   </div>
                 </div>
                   :

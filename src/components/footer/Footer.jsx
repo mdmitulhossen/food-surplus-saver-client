@@ -44,7 +44,7 @@ const Footer = () => {
                             <form>
                                 <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:gap-3 bg-white rounded-md p-2">
                                     <div className="w-full">
-                                        <label for="hero-input" className="sr-only">Search</label>
+                                        <label htmlFor="hero-input" className="sr-only">Search</label>
                                         <input type="text" id="hero-input" name="hero-input" className="py-2 px-4 block w-full border-transparent shadow-sm rounded-md focus:z-10 focus:border-[#8DC53E] focus:ring-[#8DC53E]" placeholder="Enter your email" />
                                     </div>
                                     <a className="w-full sm:w-auto whitespace-nowrap inline-flex justify-center items-center gap-x-3 text-center bg-[#8DC53E] hover:bg-[#0C4428] border border-transparent text-white font-medium rounded-md focus:outline-none focus:ring-0   transition py-2 px-4" href="#">

@@ -55,8 +55,8 @@ const AuthContextProvider = ({ children }) => {
     // use observer to check user state
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log("Inner subscribe 4")
-            console.log(user)
+            // console.log("Inner subscribe 4")
+            // console.log(user)
             setLoading(false)
             setUser(currentUser);
         });
