@@ -3,16 +3,30 @@ import Adds from "../components/Adds";
 import Breadcrumb from "../components/Breadcrumb";
 import FoodCard from "../components/card/FoodCard";
 import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import Spinner from "../components/spinner/Spinner";
 
 const AvailableFooodPage = () => {
+    const axiosSecure = useAxiosSecure()
+
     useEffect(() => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
-          });
-      }, [])
+        });
+    }, [])
 
-      
+
+    // tanstack query data load
+    const { data: foodsData, isLoading, isPending, refetch } = useQuery({
+        queryKey: ['foods'],
+        queryFn: async () => {
+            return await axiosSecure.get('/foods')
+        }
+    })
+
+    console.log(foodsData?.data)
     const {
         register,
         formState: { errors },
@@ -42,8 +56,8 @@ const AvailableFooodPage = () => {
                             </div>
                             <div>
                                 <p className="text-xl font-bold mb-2">Sort</p>
-                                <select name="" id="" {...register("sort")} className="px-1 py-2 border border-[#8DC53E] rounded-md w-full">
-                                    <option value="" selected disabled>Sort</option>
+                                <select  {...register("sort")} className="px-1 py-2 border border-[#8DC53E] rounded-md w-full">
+                                    <option value="sort" selected>Sort</option>
                                     <option value="expireDate">Expire Date</option>
                                 </select>
                                 {/* <input
@@ -54,11 +68,15 @@ const AvailableFooodPage = () => {
                             </div>
                         </div>
                         {/* right */}
+                        {
+                            isLoading && <div className='lg:col-span-9 col-span-full z-10 flex justify-center mt-20'> <Spinner /></div>
+                        }
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
-                            <FoodCard />
-                            <FoodCard />
-                            <FoodCard />
-                            <FoodCard />
+
+                            {
+                                foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
+                            }
+
                         </div>
 
                     </div>

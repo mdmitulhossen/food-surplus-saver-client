@@ -69,7 +69,7 @@ const LoginPage = () => {
             className=" w-full relative h-full"
         >
             {
-                loading && <div className='absolute w-full h-full bg-green-200/60'> <Spinner /></div>
+                loading && <div className='absolute w-full h-full bg-green-200/60 flex justify-center items-center'> <Spinner /></div>
 
             }
             <div className=' bg-white/80 foodContainer flex justify-center items-center py-10'>
