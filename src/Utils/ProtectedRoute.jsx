@@ -8,12 +8,12 @@ const ProtectedRoute = ({ children }) => {
     const location = useLocation();
 
     if (loading) {
-        return <div>Spinar</div>
+        return <div>Spinar....</div>
     }
     if (user) {
         return children
     }
-    return <Navigate state={location.pathname} to={`/signIn`} replace />
+    return <Navigate state={location.pathname} to={`/login`} replace />
 };
 
 export default ProtectedRoute; 

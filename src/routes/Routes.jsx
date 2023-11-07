@@ -11,6 +11,7 @@ import ManageSingleFood from "../Pages/ManageSingleFood";
 import MyFoodRequestPage from "../Pages/MyFoodRequestPage";
 import MyFoodUpdatePage from "../Pages/MyFoodUpdatePage";
 import NotFoundPage from "../Pages/NotFoundPage";
+import ProtectedRoute from "../Utils/ProtectedRoute";
 
 
 const Routes = createBrowserRouter([
@@ -29,27 +30,27 @@ const Routes = createBrowserRouter([
             },
             {
                 path:'/food/:id',
-                element:<FoodDetails/>
+                element:<ProtectedRoute><FoodDetails/></ProtectedRoute>
             },
             {
                 path:'/food/add',
-                element:<AddFoodPage/>
+                element:<ProtectedRoute><AddFoodPage/></ProtectedRoute>
             },
             {
                 path:'/food/update/:id',
-                element:<MyFoodUpdatePage/>
+                element:<ProtectedRoute><MyFoodUpdatePage/></ProtectedRoute>
             },
             {
                 path:'/myFoods/manage',
-                element:<ManageMyFoodPage/>
+                element:<ProtectedRoute><ManageMyFoodPage/></ProtectedRoute>
             },
             {
                 path:'/manage/:id',
-                element:<ManageSingleFood/>
+                element:<ProtectedRoute><ManageSingleFood/></ProtectedRoute>
             },
             {
                 path:'/myFoods/request',
-                element:<MyFoodRequestPage/>
+                element:<ProtectedRoute><MyFoodRequestPage/></ProtectedRoute>
             },
             {
                 path:'/login',
