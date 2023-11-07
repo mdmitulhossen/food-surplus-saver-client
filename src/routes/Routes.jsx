@@ -10,12 +10,14 @@ import ManageMyFoodPage from "../Pages/ManageMyFoodPage";
 import ManageSingleFood from "../Pages/ManageSingleFood";
 import MyFoodRequestPage from "../Pages/MyFoodRequestPage";
 import MyFoodUpdatePage from "../Pages/MyFoodUpdatePage";
+import NotFoundPage from "../Pages/NotFoundPage";
 
 
 const Routes = createBrowserRouter([
     {
         path:'/',
         element:<MainLayout/>,
+        errorElement:<NotFoundPage/>,
         children:[
             {
                 path:'/',
