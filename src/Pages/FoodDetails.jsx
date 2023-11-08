@@ -1,5 +1,4 @@
-// import user from './../assets/user.jpg'
-import food from './../assets/Home/food/berry-smoothies.jpg'
+
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/useAuth';
 import useAxiosSecure from '../hooks/useAxiosSecure';
@@ -96,19 +95,7 @@ const FoodDetails = () => {
             status: foodsData.data.status || 'pending',
         };
 
-        // const newFoodRequest = {
-        //     foodID: foodID || '',
-        //     foodName: foodName || '',
-        //     foodImgURL: foodImgURL || '',
-        //     donatorName: donatorName || '',
-        //     donatorEmail: donatorEmail || '',
-        //     userEmail: userEmail || '',
-        //     requestedDate: requestedDate || '',
-        //     location: location || '',
-        //     expireDate: expireDate || '',
-        //     donationMoney: donationMoney || '',
-        //     userMessage: userMessage || '',
-        // };
+      
 
         mutate(newFoodRequest)
     }
@@ -295,7 +282,7 @@ const FoodDetails = () => {
 
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Donation Money : </p>
-                                        <input {...register("donationMoney")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder='Donation Money' />
+                                        <input {...register("donationMoney")} type="number" min={0} className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder='Donation Money'/>
                                     </div>
                                     <div className="w-full col-span-full ">
                                         <p className="text-base font-medium mb-2">Your Message : </p>

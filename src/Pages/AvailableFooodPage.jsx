@@ -74,7 +74,7 @@ const AvailableFooodPage = () => {
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
 
                             {
-                                isSuccess && foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
+                                isSuccess && foodsData?.data && foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
                             }
 
                         </div>

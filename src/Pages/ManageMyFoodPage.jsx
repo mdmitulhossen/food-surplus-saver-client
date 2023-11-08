@@ -24,6 +24,7 @@ const ManageMyFoodPage = () => {
             return await axiosSecure.get(`/foods?email=${user?.email}`)
         }
     })
+    
     // console.log(myFoodsData)
 
 
