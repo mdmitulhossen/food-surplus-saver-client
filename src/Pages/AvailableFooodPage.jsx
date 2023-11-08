@@ -22,11 +22,13 @@ const AvailableFooodPage = () => {
     const { data: foodsData, isLoading, isPending, isSuccess, refetch } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
-            return await axiosSecure.get('/foods')
+            const res = await axiosSecure.get('/foods?status=available')
+            const data = await res.data
+            return data
         }
     })
 
-    console.log(foodsData?.data)
+    console.log(foodsData)
     const {
         register,
         formState: { errors },
@@ -74,7 +76,7 @@ const AvailableFooodPage = () => {
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
 
                             {
-                                isSuccess && foodsData?.data && foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
+                                isSuccess && foodsData && foodsData.map((food) => <FoodCard key={food._id} food={food} />)
                             }
 
                         </div>
