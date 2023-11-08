@@ -12,7 +12,7 @@ const FeatureFoods = () => {
     const { data: featureFoods, isLoading, isPending, isSuccess, refetch } = useQuery({
         queryKey: ['featureFoods'],
         queryFn: async () => {
-            return await axios.get('http://localhost:5000/featuredFoods')
+            return await axios.get('https://food-surplus-saver.vercel.app/featuredFoods')
         }
     })
 

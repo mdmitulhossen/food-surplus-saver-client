@@ -21,7 +21,7 @@ const FoodDetails = () => {
     }, [])
     // tanstack query data load
     const { data: foodsData, isLoading, isSuccess, refetch } = useQuery({
-        queryKey: ['foods'],
+        queryKey: ['foodsDetails'],
         queryFn: async () => {
             return await axiosSecure.get(`/foods/${id}`)
         }
@@ -75,7 +75,7 @@ const FoodDetails = () => {
             toast.error("Something went wrong ! isn't added")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foods')
+            queryClient.invalidateQueries('foodsRequest')
         }
     })
 

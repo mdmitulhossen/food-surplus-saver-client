@@ -20,7 +20,7 @@ const MyFoodRequestPage = () => {
 
     // tanstack query data load
     const { data: myFoodsData, isLoading, refetch } = useQuery({
-        queryKey: ['foodsRequest'],
+        queryKey: ['myfoodsRequest'],
         queryFn: async () => {
             return await axiosSecure.get(`/foodRequests?email=${user?.email}`)
         }
@@ -46,7 +46,7 @@ const MyFoodRequestPage = () => {
             toast.error(error?.response?.data || "Something went wrong ! isn't deleted")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foodsRequest')
+            queryClient.invalidateQueries('myfoodsRequest')
         }
     })
 

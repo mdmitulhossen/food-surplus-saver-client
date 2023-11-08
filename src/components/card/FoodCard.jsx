@@ -17,7 +17,7 @@ const FoodCard = ({ food }) => {
                 </div>
                 <div className="p-4 md:p-5">
                     <h3 className="text-xl font-bold text-[#0C4428] dark:text-white">
-                        Berry smoothies
+                        {foodName}
                     </h3>
                     <p className="mt-1 text-gray-800/70 dark:text-gray-400">
                         Embark on a delightful journey for your taste buds with our Berry Bliss Smoothie, a vibrant and luscious blend of nature's finest berries.

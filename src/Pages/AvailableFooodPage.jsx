@@ -20,7 +20,7 @@ const AvailableFooodPage = () => {
 
     // tanstack query data load
     const { data: foodsData, isLoading, isPending, isSuccess, refetch } = useQuery({
-        queryKey: ['foods'],
+        queryKey: ['availablefoods'],
         queryFn: async () => {
             const res = await axiosSecure.get('/foods?status=available')
             const data = await res.data

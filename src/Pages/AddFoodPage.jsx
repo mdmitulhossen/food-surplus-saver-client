@@ -32,7 +32,7 @@ const AddFoodPage = () => {
             toast.error("Something went wrong ! isn't added")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foods')
+            queryClient.invalidateQueries('availablefoods')
         }
     })
 

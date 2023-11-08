@@ -16,7 +16,7 @@ const ManageSingleFood = () => {
 
     // tanstack foods query data load
     const { data: foodById, isLoading: foodByIdLoading, } = useQuery({
-        queryKey: ['foods'],
+        queryKey: ['manageSinglefoods'],
         queryFn: async () => {
             return await axiosSecure.get(`/foods/${id}`)
         }
@@ -45,7 +45,7 @@ const ManageSingleFood = () => {
             toast.error("Something went wrong ! isn't food status updated")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foods')
+            queryClient.invalidateQueries('manageSinglefoods')
         }
     })
 
