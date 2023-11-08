@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import Adds from "../components/Adds";
 import Breadcrumb from "../components/Breadcrumb";
 import FoodCard from "../components/card/FoodCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Spinner from "../components/spinner/Spinner";
 
 const AvailableFooodPage = () => {
+    const [allFoodData, setAllFoodData] = useState([])
     const axiosSecure = useAxiosSecure()
 
     useEffect(() => {
@@ -28,13 +29,36 @@ const AvailableFooodPage = () => {
         }
     })
 
-    console.log(foodsData)
+    useEffect(() => {
+        if (foodsData) {
+            setAllFoodData(foodsData)
+        }
+    }, [foodsData])
+
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm()
     const onSubmit = (data) => console.log(data)
+
+    // handle search
+    const handleSearch = (data) => {
+        const filterData = foodsData?.filter(food => food?.foodName?.toLowerCase().includes(data?.search.toLowerCase()))
+        console.log(filterData)
+        setAllFoodData(filterData)
+    }
+
+    // handle sort
+    const handleSort = (data) => {
+        const filterData = foodsData?.sort((a, b) => {
+            if (data?.sort === 'expireDate') {
+                return new Date(a?.expireDate) - new Date(b?.expireDate)
+            }
+        })
+        console.log(filterData)
+        setAllFoodData(filterData)
+    } 
     return (
         <div >
             <Adds />
@@ -50,7 +74,7 @@ const AvailableFooodPage = () => {
                         <div className="col-span-full lg:col-span-3  space-y-5">
                             <div>
                                 <p className="text-xl font-bold mb-2">Search</p>
-                                <input
+                                <input onKeyUp={handleSubmit(handleSearch)}
                                     {...register("search")}
                                     type="text" placeholder="serach by food name"
                                     className="px-1 py-2 border border-[#8DC53E] rounded-md w-full"
@@ -58,7 +82,7 @@ const AvailableFooodPage = () => {
                             </div>
                             <div>
                                 <p className="text-xl font-bold mb-2">Sort</p>
-                                <select  {...register("sort")} className="px-1 py-2 border border-[#8DC53E] rounded-md w-full">
+                                <select onChange={handleSubmit(handleSort)}  {...register("sort")} className="px-1 py-2 border border-[#8DC53E] rounded-md w-full">
                                     <option value="sort" selected>Sort</option>
                                     <option value="expireDate">Expire Date</option>
                                 </select>
@@ -76,7 +100,8 @@ const AvailableFooodPage = () => {
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
 
                             {
-                                isSuccess && foodsData && foodsData.map((food) => <FoodCard key={food._id} food={food} />)
+                                allFoodData?.length === 0 ? <div className="col-span-full flex justify-center items-center">No Data Available</div>:
+                                isSuccess && foodsData && allFoodData.map((food) => <FoodCard key={food._id} food={food} />)
                             }
 
                         </div>
