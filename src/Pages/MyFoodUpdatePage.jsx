@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Spinner from "../components/spinner/Spinner";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const MyFoodUpdatePage = () => {
     const params = useParams()
@@ -15,7 +16,7 @@ const MyFoodUpdatePage = () => {
 
     // tanstack query data load
     const { data: updateFoodsData, isLoading } = useQuery({
-        queryKey: ['foods'],
+        queryKey: ['updatefoods'],
         queryFn: async () => {
             return await axiosSecure.get(`/foods/${params?.id}`)
         }
@@ -35,7 +36,7 @@ const MyFoodUpdatePage = () => {
             toast.error("Something went wrong ! isn't updated")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foods')
+            queryClient.invalidateQueries('updatefoods')
         }
     })
 
@@ -91,6 +92,7 @@ const MyFoodUpdatePage = () => {
 
     return (
         <div className="relative">
+            <Helmet><title>{updateFoodsData?.data?.foodName}</title></Helmet>
             {
                 isLoading || isPending || isFormLoading ? <div className='z-10 h-full absolute w-full bg-[#8DC53E]/30 flex justify-center items-center'> <Spinner /></div>:null
 

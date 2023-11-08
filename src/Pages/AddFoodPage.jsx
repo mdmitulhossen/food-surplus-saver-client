@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import Spinner from "../components/spinner/Spinner";
+import { Helmet } from "react-helmet";
 
 const AddFoodPage = () => {
     const { user } = useAuth() || {};
@@ -64,6 +65,7 @@ const AddFoodPage = () => {
 
     return (
         <div>
+            <Helmet><title>Add-Foods</title></Helmet>
             <div
                 style={{ backgroundImage: `url(${bg})` }}
                 className="w-full h-full bg-cover bg-center bg-no-repeat relative"

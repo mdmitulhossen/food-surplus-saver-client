@@ -8,6 +8,7 @@ import useAuth from '../hooks/useAuth';
 import Spinner from '../components/spinner/Spinner';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 
 const ManageMyFoodPage = () => {
@@ -118,6 +119,7 @@ const ManageMyFoodPage = () => {
             style={{ backgroundImage: `url(${bg})` }}
             className="w-full h-full bg-cover bg-center bg-no-repeat"
         >
+            <Helmet><title>Manage-My-Foods</title></Helmet>
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
                     <Breadcrumb path='Manage My Food' />

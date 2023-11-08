@@ -8,9 +8,11 @@ import HomeAbout from "./HomeAbout";
 // img import 
 import findfoodbg from '../../assets/Home/map.jpg'
 import footerimage from '../../assets/Home/footerAbove.jpg'
+import { Helmet } from "react-helmet";
 const Home = () => {
     return (
         <div>
+            <Helmet><title>Food-surplus-saver | Home</title></Helmet>
             <Hero />
 
             {/* services section */}

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Spinner from "../components/spinner/Spinner";
+import { Helmet } from "react-helmet";
 
 const AvailableFooodPage = () => {
     const [allFoodData, setAllFoodData] = useState([])
@@ -61,6 +62,7 @@ const AvailableFooodPage = () => {
     } 
     return (
         <div >
+            <Helmet><title>Available-Foods</title></Helmet>
             <Adds />
             <div className="foodContainer py-10">
                 <Breadcrumb path="Available Foods" />

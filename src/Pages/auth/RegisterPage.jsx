@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
 import Spinner from '../../components/spinner/Spinner';
+import { Helmet } from 'react-helmet';
 const RegisterPage = () => {
     const navigate = useNavigate()
     const location = useLocation();
@@ -61,6 +62,7 @@ const RegisterPage = () => {
             style={{ backgroundImage: `url(${authbg})` }}
             className=" w-full relative h-full"
         >
+            <Helmet><title>Register</title></Helmet>
             {
                 loading && <div className='absolute w-full h-full bg-green-200/60 flex justify-center items-center'> <Spinner /></div>
 
