@@ -1,8 +1,12 @@
-# React + Vite
+## My Project is  Community Food Sharing and Surplus Reduction Platform || My Project Name is Food-Surplus-Saver
+### Live-Link : https://food-surplus-saver.web.app
+## Key Feature
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Show all surplus available food
+- show details food and request to the food
+- user can added own surplus food
+- manage own food that added user(update,delete)
+- manage all requested food that user request your added food
+- manage requested food that you request any food
+- Authentication
+- mobile-friendly
