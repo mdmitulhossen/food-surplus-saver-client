@@ -24,7 +24,7 @@ const ManageSingleFood = () => {
 
     // tanstack requestFood query data load
     const { data: foodRequests, isLoading, refetch } = useQuery({
-        queryKey: ['foodsRequest'],
+        queryKey: ['manageSinglefoodsRequest'],
         queryFn: async () => {
             return await axiosSecure.get(`/foodRequests?id=${id}`)
         }
@@ -65,7 +65,7 @@ const ManageSingleFood = () => {
             toast.error("Something went wrong ! isn't updated")
         },
         onSettled: () => {
-            queryClient.invalidateQueries('foodsRequest')
+            queryClient.invalidateQueries('manageSinglefoodsRequest')
         }
     })
 
@@ -83,15 +83,15 @@ const ManageSingleFood = () => {
 
 
 
-    console.log(foodRequests?.data, foodById?.data)
+    // console.log(foodRequests?.data, foodById?.data)
 
-    const data2 = [{
-        requester: "John Doe",
-        requesterImage: "https://example.com/johndoe.jpg",
-        requesterEmail: "john.doe@example.com",
-        timeAndDate: "2023-12-01T15:30:00",
-        status: "Pending"
-    }]
+    // const data2 = [{
+    //     requester: "John Doe",
+    //     requesterImage: "https://example.com/johndoe.jpg",
+    //     requesterEmail: "john.doe@example.com",
+    //     timeAndDate: "2023-12-01T15:30:00",
+    //     status: "Pending"
+    // }]
 
 
     const requestColumn = [
@@ -159,6 +159,7 @@ const ManageSingleFood = () => {
                         <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">{foodById?.data?.foodName || ''}  </h1>
 
                         {
+                            foodRequests?.data?.length === 0 ? <div className="col-span-full flex justify-center items-center">No Data Available</div> :
                             isLoading || foodRequstPending || foodPending || foodByIdLoading ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
                                 : <Table data={foodRequests?.data} columns={requestColumn} />
                         }

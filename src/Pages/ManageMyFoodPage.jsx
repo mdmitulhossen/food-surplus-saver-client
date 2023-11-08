@@ -129,8 +129,15 @@ const ManageMyFoodPage = () => {
                         <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center mb-20">
                             "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
                         </p>
-
                         {
+                            myFoodsData?.data?.length === 0 ? <div className='w-full flex justify-center items-center'>
+                                <div className='w-full flex justify-center items-center'>
+                                    <div className='w-full flex justify-center items-center'>
+                                        <p className='text-2xl font-bold text-[#0C4428]'>You have no food</p>
+                                    </div>
+                                </div>
+                            </div>
+                        :
                             isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
                                 : <Table data={myFoodsData?.data} columns={foodsColumn} />
                         }

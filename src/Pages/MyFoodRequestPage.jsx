@@ -122,6 +122,7 @@ const MyFoodRequestPage = () => {
                     <div className='mt-10 border py-10'>
                         <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">My All Food Request</h1>
                         {
+                            myFoodsData?.data?.length === 0 ? <div className="col-span-full flex justify-center items-center">No Data Available</div> :
                             isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div> :
                                 <Table data={myFoodsData && myFoodsData?.data} columns={requestColumn} />
                         }

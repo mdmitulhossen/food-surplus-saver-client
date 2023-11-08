@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
 import Spinner from '../../components/spinner/Spinner';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 const RegisterPage = () => {
     const navigate = useNavigate()
     const location = useLocation();
@@ -35,10 +36,14 @@ const RegisterPage = () => {
         signUpWithEmailPassword(email, password)
             .then((result) => {
                 updateUserProfile({ displayName: name, photoURL: photoURL })
-                    .then(() => {
-                        setLoading(false);
-                        navigate(location?.state ? location.state : "/");
-                        toast.success("Registration successful");
+                    .then((r) => {
+                        axios.post('https://food-surplus-saver.vercel.app/jwt', { email: r?.user.email }, { withCredentials: true })
+                            .then(res => {
+                                setLoading(false);
+                                navigate(location?.state ? location.state : "/");
+                                toast.success("Registration successful");
+                            })
+
                     })
                     .catch((err) => {
                         setLoading(false);

@@ -6,6 +6,7 @@ import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
 import Spinner from '../../components/spinner/Spinner';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 const LoginPage = () => {
     const navigate = useNavigate()
@@ -21,12 +22,25 @@ const LoginPage = () => {
     // Handle Login
     const handleLogin = (data) => {
         const { email, password } = data || {}
+
+        // axios.post('https://food-surplus-saver.vercel.app/jwt', { email },{withCredentials:true})
+        // .then(res => {
+        //     console.log(res)
+        //     toast.success("Login successful");
+        // })
+
         // Sign In
+
         signInWithEmailPassword(email, password)
             .then((result) => {
-                setLoading(false);
-                navigate(location?.state ? location.state : "/");
-                toast.success("Login successful");
+                axios.post('https://food-surplus-saver.vercel.app/jwt', { email }, { withCredentials: true })
+                    .then(res => {
+                        setLoading(false);
+                        console.log(res)
+                        navigate(location?.state ? location.state : "/");
+                        toast.success("Login successful");
+                    })
+
             })
             .catch((err) => {
                 console.log(err)
@@ -40,9 +54,12 @@ const LoginPage = () => {
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then((result) => {
-                setLoading(false);
-                navigate(location?.state ? location.state : "/");
-                toast.success("Login successful");
+                axios.post('https://food-surplus-saver.vercel.app/jwt', { email: result?.user.email }, { withCredentials: true })
+                    .then(res => {
+                        setLoading(false);
+                        navigate(location?.state ? location.state : "/");
+                        toast.success("Login successful");
+                    })
             })
             .catch((err) => {
                 setLoading(false);
@@ -54,9 +71,12 @@ const LoginPage = () => {
     const handleGithubSignIn = () => {
         githubSignIn()
             .then((result) => {
-                setLoading(false);
-                navigate(location?.state ? location.state : "/");
-                toast.success("Login successful");
+                axios.post('https://food-surplus-saver.vercel.app/jwt', { email: result?.user.email }, { withCredentials: true })
+                    .then(res => {
+                        setLoading(false);
+                        navigate(location?.state ? location.state : "/");
+                        toast.success("Login successful");
+                    })
             })
             .catch((err) => {
                 setLoading(false);
