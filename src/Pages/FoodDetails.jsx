@@ -1,13 +1,58 @@
-import user from './../assets/user.jpg'
+// import user from './../assets/user.jpg'
 import food from './../assets/Home/food/berry-smoothies.jpg'
 import { useForm } from 'react-hook-form';
+import useAuth from '../hooks/useAuth';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
+import Spinner from '../components/spinner/Spinner';
+import { useEffect } from 'react';
 const FoodDetails = () => {
+    const { id } = useParams()
+    const { user } = useAuth() || {};
+    const axiosSecure = useAxiosSecure()
+    const queryClient = useQueryClient()
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, [])
+    // tanstack query data load
+    const { data: foodsData, isLoading, isSuccess, refetch } = useQuery({
+        queryKey: ['foods'],
+        queryFn: async () => {
+            return await axiosSecure.get(`/foods/${id}`)
+        }
+    })
+
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm()
+    } = useForm(
+        {
+            defaultValues: async () => {
+                const updateData = await axiosSecure.get(`/foods/${id}`)
+                const defaultValue = {
+                    foodID: updateData?.data?._id,
+                    foodName: updateData?.data?.foodName,
+                    foodImgURL: updateData?.data?.foodImgURL,
+                    donatorName: updateData?.data?.donatorName,
+                    donatorEmail: updateData?.data?.donatorEmail,
+                    userEmail: user.email,
+                    requestedDate: new Date(),
+                    location: updateData?.data?.location,
+                    expireDate: updateData?.data?.expireDate,
+                    donationMoney: '',
+                    userMessage: '',
+                }
+                return defaultValue
+            }
+        }
+    )
 
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -15,16 +60,72 @@ const FoodDetails = () => {
     const yyyy = today.getFullYear();
 
     today = yyyy + '-' + mm + '-' + dd;
-    console.log(today);
 
-    const onSubmit = (data) => console.log([...Object.keys(data)])
+
+    // useMutation tanstack query
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (newFood) => {
+            return await axiosSecure.post('/foodRequests', newFood)
+        },
+        onSuccess: (data) => {
+            console.log(data)
+            toast.success('Food Request successfully')
+
+        },
+        onError: () => {
+            toast.error("Something went wrong ! isn't added")
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('foods')
+        }
+    })
+
+    // handle add food request
+    const handleAddFoodRequest = (data) => {
+        const { foodID, foodName, foodImgURL, donatorName, donatorEmail, userEmail, requestedDate, location, expireDate, donationMoney, userMessage } = data || {};
+
+        const newFoodRequest = {
+            foodID: foodID,
+            requestedDate: new Date(),
+            expireDate: expireDate,
+            requesterName: user?.displayName,
+            requesterImageURL: user?.photoURL,
+            requesterEmail: userEmail,
+            requesterMessage: userMessage,
+            donationMoney: donationMoney,
+            status: foodsData.data.status || 'pending',
+        };
+
+        // const newFoodRequest = {
+        //     foodID: foodID || '',
+        //     foodName: foodName || '',
+        //     foodImgURL: foodImgURL || '',
+        //     donatorName: donatorName || '',
+        //     donatorEmail: donatorEmail || '',
+        //     userEmail: userEmail || '',
+        //     requestedDate: requestedDate || '',
+        //     location: location || '',
+        //     expireDate: expireDate || '',
+        //     donationMoney: donationMoney || '',
+        //     userMessage: userMessage || '',
+        // };
+
+        mutate(newFoodRequest)
+    }
+
+    // const onSubmit = (data) => console.log([...Object.keys(data)])
 
     return (
         <div className='foodContainer mt-10'>
-            <p className='text-3xl font-bold text-[#0C4428] text-center' >FOOD Name</p>
+
+            {
+                isLoading || isPending && <div className='w-full z-10 bg-[#8DC53E]/30 h-[300px] flex justify-center items-center'> <Spinner /></div>
+            }
+
+            <p className='text-3xl font-bold text-[#0C4428] text-center' >{foodsData?.data?.foodName}</p>
             <div className="md:flex items-start justify-center py-12 ">
                 <div className="xl:w-2/6 lg:w-2/5 w-80 mx-auto md:mx-5 md:block  border">
-                    <img className="w-full h-full mx-auto" alt="img of a girl posing" src={food} />
+                    <img className="w-full h-full mx-auto" alt="img of a girl posing" src={foodsData?.data?.foodImgURL} />
 
                 </div>
 
@@ -49,10 +150,10 @@ const FoodDetails = () => {
                         <div className='flex justify-between gap-3 flex-wrap pt-5 '>
                             <div className='flex gap-2 items-center'>
                                 <span className='w-10 h-10 rounded-full border'>
-                                    <img src={user} className='w-full rounded-full object-cover' alt="" />
+                                    <img src={user.photoURL} className='w-full rounded-full object-cover' alt="" />
                                 </span>
                                 <div>
-                                    <p className='text-[#0C4428] font-bold'>John Doe</p>
+                                    <p className='text-[#0C4428] font-bold'>{foodsData?.data?.donatorName}</p>
                                     <p className='text-gray-800/70'>Donator</p>
                                 </div>
                             </div>
@@ -60,7 +161,7 @@ const FoodDetails = () => {
                                 <span className='text-3xl text-[#0C4428]'><i className='bx bx-current-location'></i></span>
                                 <div>
                                     <p className='text-[#0C4428] font-bold'>Location</p>
-                                    <p className='text-gray-800/70'>Mirpur,Dhaka</p>
+                                    <p className='text-gray-800/70'>{foodsData?.data?.location}</p>
                                 </div>
                             </div>
                         </div>
@@ -72,14 +173,14 @@ const FoodDetails = () => {
                                 <span className='text-3xl text-[#0C4428]'><i className='bx bx-shield-plus'></i></span>
                                 <div>
                                     <p className='text-[#0C4428] font-bold'>Quantity</p>
-                                    <p className='text-gray-800/70'>5</p>
+                                    <p className='text-gray-800/70'>{foodsData?.data?.quantity}</p>
                                 </div>
                             </div>
                             <div className='flex gap-2 items-center'>
                                 <span className='text-3xl text-[#0C4428]'><i className='bx bxs-timer' ></i></span>
                                 <div>
                                     <p className='text-[#0C4428] font-bold'>Expired Date</p>
-                                    <p className='text-gray-800/70'>10-12-2023</p>
+                                    <p className='text-gray-800/70'>{foodsData?.data?.expireDate}</p>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +214,7 @@ const FoodDetails = () => {
                         Request
                     </button>
                     <div>
-                        <p className="xl:pr-20 text-base lg:leading-tight leading-normal text-gray-600 mt-7">It is a long established fact that a reader will be distracted by thereadable content of a page when looking at its layout. The point of usingLorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+                        <p className="xl:pr-20 text-base lg:leading-tight leading-normal text-gray-600 mt-7">{foodsData?.data?.description}</p>
 
                     </div>
 
@@ -128,6 +229,9 @@ const FoodDetails = () => {
             <div id="hs-notifications" className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
                 <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
                     <div className="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-gray-800 dark:border-gray-700">
+                        {
+                            isPending && <div className='z-10 absolute h-full w-full bg-[#8DC53E]/30 flex justify-center items-center'> <Spinner /></div>
+                        }
                         <div className="absolute top-2 right-2">
                             <button type="button" className="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-notifications">
                                 <span className="sr-only">Close</span>
@@ -138,6 +242,7 @@ const FoodDetails = () => {
                         </div>
 
                         <div className="p-4 sm:p-10 overflow-y-auto">
+                    
                             <div className="mb-6 text-center">
                                 <h3 className="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200">
                                     {'foodName'}
@@ -149,7 +254,7 @@ const FoodDetails = () => {
 
                             <div className="space-y-4">
 
-                                <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto grid grid-cols-12 max-w-[850px] gap-5">
+                                <form onSubmit={handleSubmit(handleAddFoodRequest)} className="w-full mx-auto grid grid-cols-12 max-w-[850px] gap-5">
                                     <div className="w-full col-span-full md:col-span-6">
                                         <p className="text-base font-medium mb-2">Food Id : </p>
                                         <input {...register("foodID")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Food id" readOnly />
@@ -194,7 +299,7 @@ const FoodDetails = () => {
                                     </div>
                                     <div className="w-full col-span-full ">
                                         <p className="text-base font-medium mb-2">Your Message : </p>
-                                        <textarea {...register("userMessge")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Your Message" />
+                                        <textarea {...register("userMessage")} type="text" className="px-4 py-2 border border-[#8DC53E] rounded-md w-full" placeholder="Your Message" />
                                     </div>
 
 
