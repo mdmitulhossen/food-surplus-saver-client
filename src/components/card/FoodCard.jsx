@@ -20,7 +20,9 @@ const FoodCard = ({ food }) => {
                         {foodName}
                     </h3>
                     <p className="mt-1 text-gray-800/70 dark:text-gray-400">
-                        Embark on a delightful journey for your taste buds with our Berry Bliss Smoothie, a vibrant and luscious blend of nature's finest berries.
+                        {
+                            description?.length > 30 ? description?.slice(0, 30) + '...' : description
+                        }
                     </p>
                 </div>
                 <div className="px-4 md:px-5 flex-grow flex flex-col">

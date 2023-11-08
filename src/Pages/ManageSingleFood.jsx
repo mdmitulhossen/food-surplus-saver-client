@@ -6,6 +6,7 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Spinner from '../components/spinner/Spinner';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 
 const ManageSingleFood = () => {

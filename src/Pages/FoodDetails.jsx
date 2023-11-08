@@ -140,7 +140,7 @@ const FoodDetails = () => {
                         <div className='flex justify-between gap-3 flex-wrap pt-5 '>
                             <div className='flex gap-2 items-center'>
                                 <span className='w-10 h-10 rounded-full border'>
-                                    <img src={user.photoURL} className='w-full rounded-full object-cover' alt="" />
+                                    <img src={foodsData?.data?.donatorImageURL} className='w-full rounded-full object-cover' alt="" />
                                 </span>
                                 <div>
                                     <p className='text-[#0C4428] font-bold'>{foodsData?.data?.donatorName}</p>
