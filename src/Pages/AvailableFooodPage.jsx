@@ -69,7 +69,7 @@ const AvailableFooodPage = () => {
                         </div>
                         {/* right */}
                         {
-                            isLoading && <div className='lg:col-span-9 col-span-full z-10 flex justify-center mt-20'> <Spinner /></div>
+                             isPending && <div className='lg:col-span-9 col-span-full z-10 flex justify-center mt-20'> <Spinner /></div>
                         }
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
 

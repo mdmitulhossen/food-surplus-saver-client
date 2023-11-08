@@ -11,16 +11,22 @@ import Spinner from "../components/spinner/Spinner";
 const AddFoodPage = () => {
     const { user } = useAuth() || {};
     const axiosSecure = useAxiosSecure()
-
     const queryClient = useQueryClient()
+     const {
+        register,
+        reset,
+        handleSubmit,
+        // formState: { errors },
+    } = useForm()
     // useMutation tanstack query
-    const { mutate, isPending, isSuccess, isError } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: async (newFood) => {
             return await axiosSecure.post('/foods', newFood)
         },
         onSuccess: (data) => {
             console.log(data)
             toast.success('Food added successfully')
+            reset()
         },
         onError: () => {
             toast.error("Something went wrong ! isn't added")
@@ -30,14 +36,8 @@ const AddFoodPage = () => {
         }
     })
 
-    const {
-        register,
-        reset,
-        handleSubmit,
-        // formState: { errors },
-    } = useForm()
 
-    // const onSubmit = (data) => console.log([...Object.keys(data)])
+
 
     // handle add product
     const handleAddProduct = (data) => {
