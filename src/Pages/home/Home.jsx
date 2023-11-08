@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet";
 const Home = () => {
     return (
         <div>
-            <Helmet><title>Food-surplus-saver | Home</title></Helmet>
+            <Helmet><title>Food-surplus-saver</title></Helmet>
             <Hero />
 
             {/* services section */}

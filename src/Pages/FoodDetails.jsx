@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 const FoodDetails = () => {
     const [openModal, setOpenModal] = useState(false)
     const { id } = useParams()
@@ -105,6 +106,7 @@ const FoodDetails = () => {
 
     return (
         <div className='foodContainer mt-10'>
+            <Helmet><title>Food-Saver | Food-Details</title></Helmet>
 
             {
                 isLoading || isPending && <div className='w-full z-10 bg-[#8DC53E]/30 h-[300px] flex justify-center items-center'> <Spinner /></div>

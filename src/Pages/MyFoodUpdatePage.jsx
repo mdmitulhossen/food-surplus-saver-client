@@ -92,7 +92,7 @@ const MyFoodUpdatePage = () => {
 
     return (
         <div className="relative">
-            <Helmet><title>{updateFoodsData?.data?.foodName}</title></Helmet>
+            <Helmet><title>Food-Saver | {updateFoodsData?.data?.foodName}</title></Helmet>
             {
                 isLoading || isPending || isFormLoading ? <div className='z-10 h-full absolute w-full bg-[#8DC53E]/30 flex justify-center items-center'> <Spinner /></div>:null
 

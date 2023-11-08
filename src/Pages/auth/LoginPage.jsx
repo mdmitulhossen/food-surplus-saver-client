@@ -89,7 +89,7 @@ const LoginPage = () => {
             style={{ backgroundImage: `url(${authbg})` }}
             className=" w-full relative h-full"
         >
-            <Helmet><title>Login</title></Helmet>
+            <Helmet><title>Food-Saver | Login</title></Helmet>
             {
                 loading && <div className='absolute w-full h-full bg-green-200/60 flex justify-center items-center'> <Spinner /></div>
 

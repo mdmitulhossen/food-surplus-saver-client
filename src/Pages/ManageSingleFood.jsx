@@ -151,6 +151,7 @@ const ManageSingleFood = () => {
             style={{ backgroundImage: `url(${bg})` }}
             className="w-full h-full bg-cover bg-center bg-no-repeat"
         >
+            <Helmet><title>Food-Saver | {foodById?.data?.foodName}</title></Helmet>
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
                     <Breadcrumb path={'Manage Single Food'} />

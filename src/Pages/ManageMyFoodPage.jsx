@@ -119,7 +119,7 @@ const ManageMyFoodPage = () => {
             style={{ backgroundImage: `url(${bg})` }}
             className="w-full h-full bg-cover bg-center bg-no-repeat"
         >
-            <Helmet><title>Manage-My-Foods</title></Helmet>
+            <Helmet><title>Food-Saver | Manage-Foods</title></Helmet>
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
                     <Breadcrumb path='Manage My Food' />

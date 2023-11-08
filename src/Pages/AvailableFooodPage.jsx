@@ -4,13 +4,14 @@ import Breadcrumb from "../components/Breadcrumb";
 import FoodCard from "../components/card/FoodCard";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 import Spinner from "../components/spinner/Spinner";
 import { Helmet } from "react-helmet";
+import axios from "axios";
 
 const AvailableFooodPage = () => {
     const [allFoodData, setAllFoodData] = useState([])
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
 
     useEffect(() => {
         window.scrollTo({
@@ -24,7 +25,7 @@ const AvailableFooodPage = () => {
     const { data: foodsData, isLoading, isPending, isSuccess, refetch } = useQuery({
         queryKey: ['availablefoods'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/foods?status=available')
+            const res = await axios.get('https://food-surplus-saver.vercel.app/foods?status=available')
             const data = await res.data
             return data
         }
@@ -62,7 +63,7 @@ const AvailableFooodPage = () => {
     } 
     return (
         <div >
-            <Helmet><title>Available-Foods</title></Helmet>
+            <Helmet><title>Food-Saver | Available-Foods</title></Helmet>
             <Adds />
             <div className="foodContainer py-10">
                 <Breadcrumb path="Available Foods" />

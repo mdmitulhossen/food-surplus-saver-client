@@ -114,7 +114,7 @@ const MyFoodRequestPage = () => {
             style={{ backgroundImage: `url(${bg})` }}
             className="w-full h-full bg-cover bg-center bg-no-repeat"
         >
-            <Helmet><title>My-Foods-Request</title></Helmet>
+            <Helmet><title>Food-saver | Foods-Request</title></Helmet>
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
                     <Breadcrumb path='My Food Request' />

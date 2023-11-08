@@ -65,7 +65,7 @@ const AddFoodPage = () => {
 
     return (
         <div>
-            <Helmet><title>Add-Foods</title></Helmet>
+            <Helmet><title>Food-Saver | Add-Foods</title></Helmet>
             <div
                 style={{ backgroundImage: `url(${bg})` }}
                 className="w-full h-full bg-cover bg-center bg-no-repeat relative"
