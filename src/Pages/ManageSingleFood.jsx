@@ -1,17 +1,89 @@
 import bg from '../assets/addFood/addFoodbg.svg'
 import Table from '../components/table/Table';
-
-import foodsData from '../../public/food.json'
-import { useMemo } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Spinner from '../components/spinner/Spinner';
+import toast from 'react-hot-toast';
 
 
 const ManageSingleFood = () => {
-    const data = useMemo(() => foodsData, [])
+    const { id } = useParams()
     const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
+    const queryClient = useQueryClient()
 
-    console.log(data)
+    // tanstack foods query data load
+    const { data: foodById, isLoading: foodByIdLoading, } = useQuery({
+        queryKey: ['foods'],
+        queryFn: async () => {
+            return await axiosSecure.get(`/foods/${id}`)
+        }
+    })
+
+    // tanstack requestFood query data load
+    const { data: foodRequests, isLoading, refetch } = useQuery({
+        queryKey: ['foodsRequest'],
+        queryFn: async () => {
+            return await axiosSecure.get(`/foodRequests?id=${id}`)
+        }
+    })
+
+    // useMutation food update status tanstack query
+    const { mutate: foodUpdate, isPending: foodPending } = useMutation({
+        mutationFn: async (updateData) => {
+            console.log(updateData)
+            return await axiosSecure.patch(`/foods/${updateData[0]}`, updateData[1])
+        },
+        onSuccess: () => {
+            // toast.success('Food status upadate successfully')
+            refetch()
+        },
+        onError: (error) => {
+            console.log(error)
+            toast.error("Something went wrong ! isn't food status updated")
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('foods')
+        }
+    })
+
+
+    // useMutation food request update status tanstack query
+    const { mutate: foodRequestUpdate, isPending: foodRequstPending } = useMutation({
+        mutationFn: async (updateData) => {
+            console.log('mutaion', updateData)
+            return await axiosSecure.patch(`/foodRequests/${updateData[0]}`, updateData[1])
+        },
+        onSuccess: () => {
+            toast.success('Food request status upadate successfully')
+            refetch()
+        },
+        onError: (error) => {
+            console.log(error)
+            toast.error("Something went wrong ! isn't updated")
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('foodsRequest')
+        }
+    })
+
+
+    // handle food status update
+
+    const handleStatusUpdate = (requestId, foodId, changeStatus) => {
+        console.log(requestId, foodId, changeStatus)
+        const updateData = {
+            status: changeStatus 
+        }
+        foodRequestUpdate([requestId, updateData])
+        foodUpdate([foodId, updateData])
+    }
+
+
+
+    console.log(foodRequests?.data, foodById?.data)
 
     const data2 = [{
         requester: "John Doe",
@@ -25,15 +97,15 @@ const ManageSingleFood = () => {
     const requestColumn = [
         {
             header: 'Requester',
-            accessorKey: 'requester',
+            accessorKey: 'requesterName',
         },
         {
             header: 'Image',
             // accessorKey: 'requesterImage',
             cell: ({ row }) => (
                 <img
-                    src={row?.original?.foodImgURL}
-                    alt={row?.original?.name}
+                    src={row?.original?.requesterImageURL}
+                    alt={row?.original?.requesterName}
                     className="w-16 h-16 rounded object-cover mx-auto" // You can adjust the width and height as needed
                 />
             ),
@@ -45,27 +117,27 @@ const ManageSingleFood = () => {
         },
         {
             header: 'TimeAndDate',
-            accessorKey: 'timeAndDate',
+            accessorKey: 'requestedDate',
         },
         {
             header: 'Status',
             accessorKey: 'status',
             cell: ({ row }) => (
 
-                row?.original?.status.toLowerCase() === 'available' ?
-                    <select className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
+                row?.original?.status?.toLowerCase() === 'available' ?
+                    <select onChange={(e) => handleStatusUpdate(row?.original?._id, row?.original?.foodID, e.target.value)} className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
                         <option value="available" selected>Available</option>
                         <option value="delivered">Delivered</option>
                         <option value="pending">Pending</option>
                     </select>
-                    : row?.original?.status.toLowerCase() === 'delivered' ?
-                        <select className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
+                    : row?.original?.status?.toLowerCase() === 'delivered' ?
+                        <select onChange={(e) => handleStatusUpdate(row?.original?._id, row?.original?.foodID, e.target.value)} className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
                             <option value="available">Available</option>
                             <option value="delivered" selected>Delivered</option>
                             <option value="pending">Pending</option>
                         </select>
                         :
-                        <select className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
+                        <select onChange={(e) => handleStatusUpdate(row?.original?._id, row?.original?.foodID, e.target.value)} className='px-2  border border-[#8DC53E] rounded-md w-4/5 mx-auto'>
                             <option value="available">Available</option>
                             <option value="delivered">Delivered</option>
                             <option value="pending" selected>Pending</option>
@@ -84,9 +156,12 @@ const ManageSingleFood = () => {
                     <Breadcrumb path={'Manage Single Food'} />
 
                     <div className='mt-10 border py-10'>
-                        <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">{'FOOD NAME'}  </h1>
+                        <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">{foodById?.data?.foodName || ''}  </h1>
 
-                        <Table data={data2} columns={requestColumn} />
+                        {
+                            isLoading || foodRequstPending || foodPending || foodByIdLoading ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
+                                : <Table data={foodRequests?.data} columns={requestColumn} />
+                        }
                     </div>
                 </div>
 

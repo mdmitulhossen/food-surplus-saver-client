@@ -19,7 +19,7 @@ const AvailableFooodPage = () => {
 
 
     // tanstack query data load
-    const { data: foodsData, isLoading, isPending, refetch } = useQuery({
+    const { data: foodsData, isLoading, isPending, isSuccess, refetch } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
             return await axiosSecure.get('/foods')
@@ -69,12 +69,12 @@ const AvailableFooodPage = () => {
                         </div>
                         {/* right */}
                         {
-                             isPending && <div className='lg:col-span-9 col-span-full z-10 flex justify-center mt-20'> <Spinner /></div>
+                            isPending && <div className='lg:col-span-9 col-span-full z-10 flex justify-center mt-20'> <Spinner /></div>
                         }
                         <div className="col-span-full lg:col-span-9 grid xl:grid-cols-3 md:grid-cols-2 gap-2">
 
                             {
-                                foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
+                                isSuccess && foodsData?.data?.map((food) => <FoodCard key={food._id} food={food} />)
                             }
 
                         </div>

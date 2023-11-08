@@ -1,30 +1,72 @@
 import bg from '../assets/addFood/addFoodbg.svg'
 import Table from '../components/table/Table';
-
-import foodsData from '../../public/food.json'
-import { useMemo } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import useAuth from '../hooks/useAuth';
 import Spinner from '../components/spinner/Spinner';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 
 const ManageMyFoodPage = () => {
-    // const data = useMemo(() => foodsData, [])
+
     const { user } = useAuth() || {};
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
+    const queryClient = useQueryClient()
 
     // tanstack query data load
-    const { data: myFoodsData, isLoading, isPending, refetch } = useQuery({
+    const { data: myFoodsData, isLoading, refetch } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
             return await axiosSecure.get(`/foods?email=${user?.email}`)
         }
     })
-    console.log(myFoodsData)
+    // console.log(myFoodsData)
+
+
+    // useMutation tanstack query
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (id) => {
+            return await axiosSecure.delete(`/foods/${id}`)
+        },
+        onSuccess: () => {
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+            refetch()
+        },
+        onError: (error) => {
+            console.log(error)
+            toast.error("Something went wrong ! isn't deleted")
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('foods')
+        }
+    })
+
+
+    // handle delete my food
+    const handleDeleteMyFood = async (id) => {
+        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mutate(id)
+            }
+        });
+    }
 
 
     const foodsColumn = [
@@ -63,7 +105,7 @@ const ManageMyFoodPage = () => {
         {
             header: 'action',
             cell: ({ row }) => <div className='flex gap-3 justify-center'>
-                <button onClick={() => console.log(row)} className='text-red-600 text-xl'><i className='bx bxs-message-square-minus' ></i></button>
+                <button onClick={() => handleDeleteMyFood(row?.original?._id)} className='text-red-600 text-xl'><i className='bx bxs-message-square-minus' ></i></button>
                 <button onClick={() => navigate(`/food/update/${row?.original?._id}`)} className='text-[#8DC53E] text-xl'><i className='bx bxs-edit-alt' ></i></button>
                 <button onClick={() => navigate(`/manage/${row?.original?._id}`)} className='text-[#0C4428] text-xl'><i className='bx bxs-low-vision' ></i></button>
             </div>
@@ -86,7 +128,7 @@ const ManageMyFoodPage = () => {
                         </p>
 
                         {
-                            isLoading ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
+                            isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
                                 : <Table data={myFoodsData?.data} columns={foodsColumn} />
                         }
 
