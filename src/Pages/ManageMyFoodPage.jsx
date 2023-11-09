@@ -9,6 +9,8 @@ import Spinner from '../components/spinner/Spinner';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
+import Lottie from 'lottie-react';
+import nodatafound from "../assets/lottie-data/noData1.json";
 
 
 const ManageMyFoodPage = () => {
@@ -125,18 +127,21 @@ const ManageMyFoodPage = () => {
                     <Breadcrumb path='Manage My Food' />
 
                     <div className='mt-10 border py-10'>
-                        <h1 className="text-4xl font-bold text-center text-[#0C4428] ">My Food  </h1>
+                    <div className=' text-center'>
+                        <h1 className="text-4xl font-bold text-center text-[#0C4428] inline-block relative pb-2">
+                            <span className='w-1/2 h-[4px] bg-[#0C4428] absolute left-1/2 -translate-x-1/2 bottom-0'></span>
+                            My Foods
+                        </h1>
+                    </div>
                         <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center mb-20">
                             "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
                         </p>
                         {
-                            myFoodsData?.data?.length === 0 ? <div className='w-full flex justify-center items-center'>
-                                <div className='w-full flex justify-center items-center'>
-                                    <div className='w-full flex justify-center items-center'>
-                                        <p className='text-2xl font-bold text-[#0C4428]'>You have no food</p>
-                                    </div>
-                                </div>
-                            </div>
+                            myFoodsData?.data?.length === 0 ? <div className="col-span-full flex justify-center items-center">
+                            <div className="w-1/2 h-[250px]">
+                                <Lottie animationData={nodatafound} loop={true} style={{ height: "100%" }} />
+                                <p className='text-xl font-bold text-[#0C4428] w-full text-center mb-3'>Your have no food</p>
+                            </div></div>
                         :
                             isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
                                 : <Table data={myFoodsData?.data} columns={foodsColumn} />

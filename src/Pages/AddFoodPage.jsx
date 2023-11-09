@@ -13,7 +13,7 @@ const AddFoodPage = () => {
     const { user } = useAuth() || {};
     const axiosSecure = useAxiosSecure()
     const queryClient = useQueryClient()
-     const {
+    const {
         register,
         reset,
         handleSubmit,
@@ -81,7 +81,12 @@ const AddFoodPage = () => {
 
                         <div className="mt-10 border rounded-md px-2  py-8">
 
-                            <h1 className="text-4xl font-bold text-center text-[#0C4428] ">Add Your Food </h1>
+                            <div className=' text-center'>
+                                <h1 className="text-4xl font-bold text-center text-[#0C4428] inline-block relative pb-2">
+                                    <span className='w-1/2 h-[4px] bg-[#0C4428] absolute left-1/2 -translate-x-1/2 bottom-0'></span>
+                                    Add Your Food
+                                </h1>
+                            </div>
                             <p className="text-gray-500 lg:w-1/2 md:w-4/5 w-full mt-3 mx-auto text-center">
                                 "Help reduce food waste and fight hunger in your community by adding details about the surplus food you have."
                             </p>

@@ -10,6 +10,8 @@ import Spinner from '../components/spinner/Spinner';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
+import Lottie from 'lottie-react';
+import nodatafound from "../assets/lottie-data/noData1.json";
 
 const MyFoodRequestPage = () => {
     const { user } = useAuth() || {};
@@ -120,11 +122,20 @@ const MyFoodRequestPage = () => {
                     <Breadcrumb path='My Food Request' />
 
                     <div className='mt-10 border py-10'>
-                        <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">My All Food Request</h1>
+                        <div className=' text-center mb-12'>
+                            <h1 className="text-4xl font-bold text-center text-[#0C4428] inline-block relative pb-2">
+                                <span className='w-1/2 h-[4px] bg-[#0C4428] absolute left-1/2 -translate-x-1/2 bottom-0'></span>
+                                My All Food Request
+                            </h1>
+                        </div>
                         {
-                            myFoodsData?.data?.length === 0 ? <div className="col-span-full flex justify-center items-center">No Data Available</div> :
-                            isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div> :
-                                <Table data={myFoodsData && myFoodsData?.data} columns={requestColumn} />
+                            myFoodsData?.data?.length === 0 ? <div className="w-full flex justify-center items-center">
+                                <div className="w-1/2 h-[250px]">
+                                    <Lottie animationData={nodatafound} loop={true} style={{ height: "100%" }} />
+                                    <p className='text-xl font-bold text-[#0C4428] w-full text-center mb-3'>Here haven,t any your requested food</p>
+                                </div></div> :
+                                isLoading || isPending ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div> :
+                                    <Table data={myFoodsData && myFoodsData?.data} columns={requestColumn} />
                         }
                     </div>
                 </div>

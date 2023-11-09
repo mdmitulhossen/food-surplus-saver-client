@@ -24,7 +24,7 @@ const MyFoodUpdatePage = () => {
 
 
     // useMutation tanstack query
-    const { mutate, isPending} = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: async (updateFood) => {
             return await axiosSecure.put(`/foods/${params?.id}`, updateFood)
         },
@@ -45,7 +45,7 @@ const MyFoodUpdatePage = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors,isLoading:isFormLoading },
+        formState: { errors, isLoading: isFormLoading },
     } = useForm(
         {
             defaultValues: async () => {
@@ -92,9 +92,9 @@ const MyFoodUpdatePage = () => {
 
     return (
         <div className="relative">
-            <Helmet><title>Food-Saver | {updateFoodsData?.data?.foodName}</title></Helmet>
+            <Helmet><title>Food-Saver | update</title></Helmet>
             {
-                isLoading || isPending || isFormLoading ? <div className='z-10 h-full absolute w-full bg-[#8DC53E]/30 flex justify-center items-center'> <Spinner /></div>:null
+                isLoading || isPending || isFormLoading ? <div className='z-10 h-full absolute w-full bg-[#8DC53E]/30 flex justify-center items-center'> <Spinner /></div> : null
 
             }
             <div
@@ -107,7 +107,12 @@ const MyFoodUpdatePage = () => {
                         <Breadcrumb path='update Food' />
 
                         <div className="mt-10 border rounded-md px-2  py-8">
-                            <h1 className="text-4xl font-bold text-center text-[#0C4428] ">Update  Food</h1>
+                            <div className=' text-center'>
+                                <h1 className="text-4xl font-bold text-center text-[#0C4428] inline-block relative pb-2">
+                                    <span className='w-[130px] h-[4px] bg-[#0C4428] absolute left-1/2 -translate-x-1/2 bottom-0'></span>
+                                    Update Food
+                                </h1>
+                            </div>
 
 
                             <div className="mt-20">

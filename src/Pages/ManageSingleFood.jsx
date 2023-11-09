@@ -7,7 +7,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Spinner from '../components/spinner/Spinner';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
-
+import Lottie from 'lottie-react';
+import nodatafound from "../assets/lottie-data/noData1.json";
 
 const ManageSingleFood = () => {
     const { id } = useParams()
@@ -76,7 +77,7 @@ const ManageSingleFood = () => {
     const handleStatusUpdate = (requestId, foodId, changeStatus) => {
         console.log(requestId, foodId, changeStatus)
         const updateData = {
-            status: changeStatus 
+            status: changeStatus
         }
         foodRequestUpdate([requestId, updateData])
         foodUpdate([foodId, updateData])
@@ -152,18 +153,27 @@ const ManageSingleFood = () => {
             style={{ backgroundImage: `url(${bg})` }}
             className="w-full h-full bg-cover bg-center bg-no-repeat"
         >
-            <Helmet><title>Food-Saver | {foodById?.data?.foodName}</title></Helmet>
+            <Helmet><title>Food-Saver | your foods </title></Helmet>
             <div className="w-full h-full bg-white/90 py-20">
                 <div className='foodContainer w-full'>
                     <Breadcrumb path={'Manage Single Food'} />
 
                     <div className='mt-10 border py-10'>
-                        <h1 className="text-4xl font-bold text-center text-[#0C4428] mb-16">{foodById?.data?.foodName || ''}  </h1>
+                        <div className=' text-center mb-12'>
+                            <h1 className="text-4xl font-bold text-center text-[#0C4428] inline-block relative pb-2">
+                                <span className='w-1/2 h-[4px] bg-[#0C4428] absolute left-1/2 -translate-x-1/2 bottom-0'></span>
+                                {foodById?.data?.foodName || ''}
+                            </h1>
+                        </div>
 
                         {
-                            foodRequests?.data?.length === 0 ? <div className="col-span-full flex justify-center items-center">No Data Available</div> :
-                            isLoading || foodRequstPending || foodPending || foodByIdLoading ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
-                                : <Table data={foodRequests?.data} columns={requestColumn} />
+                            foodRequests?.data?.length === 0 ?<div className="w-full flex justify-center items-center">
+                            <div className="w-1/2 h-[250px]">
+                                <Lottie animationData={nodatafound} loop={true} style={{ height: "100%" }} />
+                                <p className='text-xl font-bold text-[#0C4428] w-full text-center mb-3'>Here haven,t any your food Request</p>
+                            </div></div> :
+                                isLoading || foodRequstPending || foodPending || foodByIdLoading ? <div className=' w-full  flex justify-center items-center z-10'> <Spinner /></div>
+                                    : <Table data={foodRequests?.data} columns={requestColumn} />
                         }
                     </div>
                 </div>

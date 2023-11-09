@@ -7,7 +7,7 @@ const FoodCard = ({ food }) => {
     const { createdAt, description, donatorEmail, donatorImageURL, donatorName, expireDate, foodImgURL, foodName, location, quantity, status, _id, } = food || {};
 
 
-    console.log(food)
+    // console.log(food)
     const navigate = useNavigate()
     return (
         <div className='h-full'>
