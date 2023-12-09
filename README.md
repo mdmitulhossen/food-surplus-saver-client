@@ -10,3 +10,6 @@
 - manage requested food that you request any food
 - Authentication
 - mobile-friendly
+
+### Technologies:
+-  React JS | Express JS | Firebase | Lottie-react | MongoDB | tailwindCSS
